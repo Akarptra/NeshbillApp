@@ -3,18 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package aplikasipenjualan;
-
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import util.MD5;
+import util.koneksi;
 /**
  *
  * @author IdewBayu
  */
 public class frm_login extends javax.swing.JFrame {
-
+    Connection conn;
+    PreparedStatement pst;
+    ResultSet rst;
+    public static String nama_user, jabatan;
+    
     /**
      * Creates new form frm_login
      */
     public frm_login() {
         initComponents();
+        conn = koneksi.koneksiDB();
     }
 
     /**
@@ -27,82 +38,180 @@ public class frm_login extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        btn_login = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        txt_password = new javax.swing.JPasswordField();
+        txt_login = new rojerusan.RSMaterialButtonRectangle();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txt_username = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jcheck = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(128, 113, 102));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(128, 113, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Lock.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 370, -1, -1));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (16) (1).png"))); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Account.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
+        txt_password.setFont(new java.awt.Font("Gadugi", 0, 14)); // NOI18N
+        txt_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 198, 194), 2));
+        jPanel1.add(txt_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 220, 40));
 
-        jTextField1.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(248, 241, 238), 2));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 233, 50));
-
-        jTextField2.setFont(new java.awt.Font("Candara", 0, 18)); // NOI18N
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(248, 241, 238), 2));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, 233, 52));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (19).png"))); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 250, -1));
-
-        btn_login.setBackground(new java.awt.Color(255, 255, 255));
-        btn_login.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-        btn_login.setText("LOGIN");
-        btn_login.setToolTipText("");
-        btn_login.setBorder(null);
-        btn_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btn_login.setFocusable(false);
-        btn_login.addActionListener(new java.awt.event.ActionListener() {
+        txt_login.setBackground(new java.awt.Color(248, 241, 238));
+        txt_login.setForeground(new java.awt.Color(51, 51, 51));
+        txt_login.setText("LOGIN");
+        txt_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_login.setFont(new java.awt.Font("Franklin Gothic Book", 1, 15)); // NOI18N
+        txt_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_loginActionPerformed(evt);
+                txt_loginActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 470, 118, 40));
+        jPanel1.add(txt_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 290, 60));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/usericon.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/lock-fill.png"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
+
+        txt_username.setFont(new java.awt.Font("Gadugi", 0, 18)); // NOI18N
+        txt_username.setForeground(new java.awt.Color(204, 204, 204));
+        txt_username.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txt_username.setText("Username");
+        txt_username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 198, 194), 2));
+        txt_username.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_usernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_usernameFocusLost(evt);
+            }
+        });
+        txt_username.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_usernameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txt_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 220, 40));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (19).png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, 230, 210));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/usericon.png"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (16).png"))); // NOI18N
         jLabel2.setText("jLabel2");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 303, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, 303, 300));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (19).png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 190, 210));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (19).png"))); // NOI18N
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 250, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/Desain tanpa judul (16) (1).png"))); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, -1, -1));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/usericon.png"))); // NOI18N
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, -1, -1));
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userlogin.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, -1, -1));
+
+        jcheck.setForeground(new java.awt.Color(255, 255, 255));
+        jcheck.setText("Show Password");
+        jcheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcheckActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcheck, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
+    
+    private void txt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_loginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btn_loginActionPerformed
+        try {
+            String sql = "SELECT * FROM `login` WHERE username = '" + txt_username.getText()+"' and password = MD5('" + txt_password.getText()+"')";
+            
+            pst = conn.prepareStatement(sql);
+            rst = pst.executeQuery();
+            
+            if (rst.next()){
+                
+                String username = rst.getString("username");
+                String password = rst.getString("password");
+                nama_user = rst.getString("nama_user");
+                jabatan = rst.getString("jabatan");
+                
+                System.out.println(password);
+                System.out.println(MD5.getMd5(txt_password.getText()));
+               
+                if(jabatan.equals("admin gudang")){
+                    new frm_main_admin().setVisible(true);
+                    this.dispose();
+                }else if(jabatan.equals("kasir")){
+                    new frm_transaksi_kasir().setVisible(true);
+                    this.dispose();
+                }else if(jabatan.equals("founder")){
+                    new frm_income().setVisible(true);
+                    this.dispose();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Username / password salah");
+            }
+            
+        } catch (Exception e){
+            JOptionPane.showMessageDialog(null,e);
+        }
+    }//GEN-LAST:event_txt_loginActionPerformed
+    
+    private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_usernameActionPerformed
+
+    private void txt_usernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_usernameFocusGained
+        // TODO add your handling code here:
+        if(txt_username.getText().equals("Username")) {
+            txt_username.setText("");
+            txt_username.setForeground(new Color(0,0,0));
+        }
+    }//GEN-LAST:event_txt_usernameFocusGained
+
+    private void txt_usernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_usernameFocusLost
+        // TODO add your handling code here:
+        if(txt_username.getText().equals("")) {
+            txt_username.setText("Username");
+            txt_username.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_txt_usernameFocusLost
+
+    private void jcheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcheckActionPerformed
+        // TODO add your handling code here:
+        if(jcheck.isSelected()) {
+            txt_password.setEchoChar((char)0);
+        } else {
+            txt_password.setEchoChar('*');
+        }
+    }//GEN-LAST:event_jcheckActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,15 +249,19 @@ public class frm_login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_login;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JCheckBox jcheck;
+    private rojerusan.RSMaterialButtonRectangle txt_login;
+    private javax.swing.JPasswordField txt_password;
+    private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

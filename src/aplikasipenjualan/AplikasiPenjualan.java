@@ -15,6 +15,8 @@ public class AplikasiPenjualan {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        frm_login login = new frm_login();
+        login.setVisible(true);
     }
     
 }
